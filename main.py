@@ -46,11 +46,11 @@ for mb in man_bits:
             model = load_model_base()
             # Rather than attaching weights, since we're only doing inference
             # We can just clamp the weights rather than using hooks that apply on every pass
-            clamp_weights(model.conv1, eb, mb)
-            clamp_weights(model.bn1, eb, mb)
-            clamp_weights(model.conv2, eb, mb)
-            clamp_weights(model.bn2, eb, mb)
-            clamp_weights(model.lin2, eb, mb)
+            clamp_weights(model.conv1, 1, eb, mb)
+            clamp_weights(model.bn1, 1, eb, mb)
+            clamp_weights(model.conv2, 1, eb, mb)
+            clamp_weights(model.bn2, 1, eb, mb)
+            clamp_weights(model.lin2, 1, eb, mb)
             clamp_acc[mb][eb] = test_model(model)
 
 fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
