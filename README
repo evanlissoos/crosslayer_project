@@ -1,0 +1,18 @@
+What have I done so far?
+The biggest thing I've done so far is create a function that will take in a FP32 tensor and clamp it to an arbitrary precision floating point value. The only restrictions are that each of the floating point parameters can fit within the FP32 parameters (by parameters, I mean number of sign bits, exponent bits, mantissa bits). You can even make unsigned floating point formats with this function by specifying the signed bits to be zero.
+
+The main limitation is that due to the limts of Python, it's not particularly straightforward to do this conversion. I effectively do so by converting to a NumPy array, running the function, then converting back to a PyTorch tesnor. This is super slow which limits how easily we can evaluate other things. If you can speed this up, that'd be great. The functions is clamp_float, vec_clamp_float is the NumPy vectorized version.
+
+I've also written functions that sweep the parameters and make a 3D plot of accuracy. I didn't show signed vs. unsigned since it didn't really work for this model, but could be interesting for other models/layers. The plots I made seperately apply the numerical transformations to the weights and inputs. For the weights, I applied the same transform to all layers, I didn't try to dissect how each layer individually responded to different floating point parameters.
+
+As mentioned, I just ran this on the Lab 3 model for MNIST Fashion, which isn't particularly interesting. What could be interesting are some models that don't quantize well. Then, we can show this as an effective alternative to models that can't quantize to integer operations. After discussing with Mattan, there are few options in this category:
+- Any model during training, since quantization during training normally doesn't work well
+- Language models are primarily FP16 and transformers FP8? Could be interesting to see how these could be pushed, transformers might be the best bet
+- Image/recommender models quantize well, therefore probably not interesting
+- Stable diffusion could be fun, network has over a GB of weights and has some solid open source code
+
+Some potential items to be done:
+- Find a faster way to perform the clamping of tensors so we can try to train with the clamping actively being applied
+- Do some analysis on the different layers and how they respond differently to floating point parameters
+- Run some analysis on a different model as discussed above
+- Something else you think could be interesting!
