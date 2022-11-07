@@ -1,5 +1,4 @@
 from model import *
-import struct
 
 # Function that loads the baseline model (FP32)
 # Prints: nothing
@@ -36,9 +35,7 @@ def load_model_fquant():
     fname = './models/qint8_fused.model'
     # Start with the baseline
     model = load_model_base()
-    # Not sure why, but need to test model otherwise it'll think we're trying to train and fail an assert
-    # Probably some sort of PyTorch bug on load-to-use
-    test_model(model, False)
+    model.eval()
     # Quantize/convert the baseline model
     torch.backends.quantized.engine = 'qnnpack'
     model.qconfig = torch.ao.quantization.default_qconfig
