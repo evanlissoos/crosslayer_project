@@ -23,11 +23,16 @@ def clamp_weights_hook(self, input, output):
         self.weight = nn.Parameter(torch.from_numpy(np_weights))
 
 # Example of attaching hooks
-# model.conv1.register_forward_hook(clamp_weights_hook)
-# model.bn1.register_forward_hook(clamp_weights_hook)
-# model.conv2.register_forward_hook(clamp_weights_hook)
-# model.bn2.register_forward_hook(clamp_weights_hook)
-# model.lin2.register_forward_hook(clamp_weights_hook)
+model = load_model_base()
+clamp_weights_hook.s_bits = 1
+clamp_weights_hook.e_bits = 7
+clamp_weights_hook.m_bits = 3
+model.conv1.register_forward_hook(clamp_weights_hook)
+model.bn1.register_forward_hook(clamp_weights_hook)
+model.conv2.register_forward_hook(clamp_weights_hook)
+model.bn2.register_forward_hook(clamp_weights_hook)
+model.lin2.register_forward_hook(clamp_weights_hook)
+test_model(model)
 
 
 #############################
