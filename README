@@ -6,7 +6,7 @@ The main limitation is that due to the limts of Python, it's not particularly st
 I've also written functions that sweep the parameters and make a 3D plot of accuracy. I didn't show signed vs. unsigned since it didn't really work for this model, but could be interesting for other models/layers. The plots I made seperately apply the numerical transformations to the weights and inputs. For the weights, I applied the same transform to all layers, I didn't try to dissect how each layer individually responded to different floating point parameters.
 
 As mentioned, I just ran this on the Lab 3 model for MNIST Fashion, which isn't particularly interesting. What could be interesting are some models that don't quantize well. Then, we can show this as an effective alternative to models that can't quantize to integer operations. After discussing with Mattan, there are few options in this category:
-- Any model during training, since quantization during training normally doesn't work well
+- Any model during training, since quantization during training normally doesn't work well (GPT3 or GPT2, BERT, etc)
 - Language models are primarily FP16 and transformers FP8? Could be interesting to see how these could be pushed, transformers might be the best bet
 - Image/recommender models quantize well, therefore probably not interesting
 - Stable diffusion could be fun, network has over a GB of weights and has some solid open source code
