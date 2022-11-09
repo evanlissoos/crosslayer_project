@@ -18,7 +18,7 @@ def clamp_weights_hook(self, input, output):
     # First, detach and convert the weights to a NumPy array
     np_weights = self.weight.detach().numpy()
     # Call the vectorized clamp function
-    np_weights = vec_clamp_float(np_weights, s_bits, e_bits, m_bits)
+    vec_clamp_float(np_weights, s_bits, e_bits, m_bits)
     with torch.no_grad():
         self.weight = nn.Parameter(torch.from_numpy(np_weights))
 
@@ -33,6 +33,7 @@ model.conv2.register_forward_hook(clamp_weights_hook)
 model.bn2.register_forward_hook(clamp_weights_hook)
 model.lin2.register_forward_hook(clamp_weights_hook)
 test_model(model)
+quit()
 
 
 #############################
