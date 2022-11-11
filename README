@@ -15,5 +15,6 @@ As mentioned, I just ran this on the Lab 3 model for MNIST Fashion, which isn't 
 Some potential items to be done:
 - Find a faster way to perform the clamping of tensors so we can try to train with the clamping actively being applied
 - Do some analysis on the different layers and how they respond differently to floating point parameters
+- Come up with a method to have the training process automatically change the floating point parameters
 - Run some analysis on a different model as discussed above
 - Something else you think could be interesting!
